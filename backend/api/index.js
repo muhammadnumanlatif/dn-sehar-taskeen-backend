@@ -12,22 +12,25 @@ const admin = require('firebase-admin');
 let serviceAccount;
 try {
     if (process.env.FIREBASE_SERVICE_ACCOUNT_BASE64) {
-        // Production: Use Base64 string from Vercel Env Vars
+        console.log("🛠️ Decoding Base64 Service Account...");
         const decoded = Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_BASE64, 'base64').toString('utf-8');
         serviceAccount = JSON.parse(decoded);
     } else {
-        // Local: Use the JSON file
-        const serviceAccountPath = path.resolve(__dirname, './firebase-service-account.json');
+        console.log("🛠️ Attempting to load service account from file...");
+        // Path fix: Since we are in /api/index.js, the file is in the parent directory
+        const serviceAccountPath = path.resolve(__dirname, '../firebase-service-account.json');
         serviceAccount = require(serviceAccountPath);
     }
 
-    admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-        storageBucket: serviceAccount.project_id + ".firebasestorage.app" // Auto-detect bucket
-    });
-    console.log("✅ Firebase Admin & Storage Initialized");
+    if (serviceAccount && !admin.apps.length) {
+        admin.initializeApp({
+            credential: admin.credential.cert(serviceAccount),
+            storageBucket: serviceAccount.project_id + ".firebasestorage.app"
+        });
+        console.log("✅ Firebase Admin & Storage Initialized");
+    }
 } catch (e) {
-    console.warn("⚠️ Firebase Admin could not be initialized. Error:", e.message);
+    console.error("❌ CRITICAL: Firebase Admin Initialization Failed:", e.message);
 }
 
 const upload = multer({ storage: multer.memoryStorage() }); // Switch to memory for Cloud Uploads
