@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+*.zip
+backend/.env
+backend/firebase-service-account.json
+backend/irebase-service-account.json
+next_app/.env.local
+next_app/.next
+next_app/out
