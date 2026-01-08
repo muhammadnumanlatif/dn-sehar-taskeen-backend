@@ -4,7 +4,7 @@
   "description": "Simple Express server to handle WhatsApp OTP",
   "main": "api/index.js",
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "scripts": {
     "start": "node api/index.js",
