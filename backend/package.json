@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "Simple Express server to handle WhatsApp OTP",
   "main": "api/index.js",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
-    "start": "node api/index.js"
+    "start": "node api/index.js",
+    "build": "echo 'No build step'"
   },
   "dependencies": {
     "axios": "^1.6.2",
