@@ -205,18 +205,13 @@ app.post('/api/parse-cv', uploadMemory.single('cv'), async (req, res) => {
 });
 
 // Export for Vercel
+// Export the Express API for Vercel
 module.exports = app;
 
-// Only start the server if running locally (not as a Vercel function)
+// Start server ONLY when running locally
 if (require.main === module) {
-    const startServer = (port) => {
-        const portNum = parseInt(port, 10);
-        app.listen(portNum, () => {
-            console.log(`✅ Local Backend running on http://localhost:${portNum}`);
-        }).on('error', (err) => {
-            if (err.code === 'EADDRINUSE') startServer(portNum + 1);
-            else console.error(err);
-        });
-    };
-    startServer(PORT);
+    const port = process.env.PORT || 5001;
+    app.listen(port, () => {
+        console.log(`✅ Local Server running on http://localhost:${port}`);
+    });
 }
