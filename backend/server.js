@@ -54,7 +54,10 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5001;
 
-// --- USER MANAGEMENT ENDPOINTS ---
+// --- ROOT HEALTH CHECK ---
+app.get('/', (req, res) => {
+    res.send('🚀 Dr. Sehar Taskeen API is Live & Healthy!');
+});
 
 app.post('/api/admin/create-user', async (req, res) => {
     const { email, password, name, role } = req.body;
