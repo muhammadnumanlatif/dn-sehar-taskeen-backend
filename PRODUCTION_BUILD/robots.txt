@@ -1,0 +1,12 @@
+User-Agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+User-Agent: GPTBot
+Allow: /
+
+User-Agent: facebookexternalhit
+Allow: /
+
+Sitemap: https://drsehartaskeen.online/sitemap.xml
