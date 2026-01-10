@@ -3,7 +3,7 @@ export const courses = [
         id: 'pcos-specialist',
         slug: 'pcos-specialist-certification',
         title: 'PCOS Specialist Certification',
-        price: '$1,299',
+        price: 'Rs. 350,000',
         duration: '12-Week Program',
         description: 'Comprehensive training in PCOS management and hormonal health protocols. Master the clinical art of reversing Polycystic Ovary Syndrome.',
         curriculum: [
@@ -19,7 +19,7 @@ export const courses = [
         id: 'gut-health-mastery',
         slug: 'gut-health-mastery',
         title: 'Gut Health Mastery',
-        price: '$999',
+        price: 'Rs. 275,000',
         duration: '10-Week Program',
         description: 'Advanced training in digestive health, microbiome optimization, and evidence-based protocols for SIBO and IBS.',
         curriculum: [
@@ -34,7 +34,7 @@ export const courses = [
         id: 'metabolic-health',
         slug: 'metabolic-health-expert',
         title: 'Metabolic Health Expert',
-        price: '$899',
+        price: 'Rs. 250,000',
         duration: '8-Week Program',
         description: 'Certification in Diabetes Reversal, Metabolic Syndrome management, and sustainable weight loss strategies.',
         curriculum: [
@@ -53,6 +53,7 @@ export const services = [
         slug: 'hormonal-health',
         title: 'Hormonal Health & PCOS',
         icon: '🌸',
+        price: 'Rs. 15,000',
         description: 'Evidence-based clinical protocols for PCOS reversal, Thyroid optimization, and Fertility.',
         hero_title: 'Reclaim Your Hormonal Balance Naturally',
         problem: {
@@ -84,6 +85,7 @@ export const services = [
         slug: 'gut-health',
         title: 'Gut Health Restoration',
         icon: '🌿',
+        price: 'Rs. 15,000',
         description: 'Specialized management for SIBO, IBS, Leaky Gut, and Microbiome dysbiosis.',
         hero_title: 'Heal Your Gut, Heal Your Body',
         problem: {
@@ -115,6 +117,7 @@ export const services = [
         slug: 'metabolic-wellness',
         title: 'Metabolic Wellness & Diabetes',
         icon: '💪',
+        price: 'Rs. 12,000',
         description: 'Clinically proven strategies for Diabetes Reversal, Weight Management, and Heart Health.',
         hero_title: 'Metabolic Flexibility for Life',
         problem: {
@@ -146,6 +149,7 @@ export const services = [
         slug: 'maternal-pediatric',
         title: 'Maternal & Pediatric Nutrition',
         icon: '🤰',
+        price: 'Rs. 12,000',
         description: 'Expert care for Gestational Diabetes, Prenatal health, and Pediatric growth.',
         hero_title: 'Nurturing the Next Generation',
         problem: {
@@ -176,6 +180,7 @@ export const services = [
         slug: 'sports-performance',
         title: 'Sports Performance Nutrition',
         icon: '🏃',
+        price: 'Rs. 18,000',
         description: 'Elite nutrition protocols for athletes, MMA weight cuts, and recovery.',
         hero_title: 'Fuel Your Performance',
         problem: {
@@ -206,6 +211,7 @@ export const services = [
         slug: 'clinical-mnt',
         title: 'Clinical MNT',
         icon: '🧠',
+        price: 'Rs. 20,000',
         description: 'Therapeutic diets for Renal disease, Autoimmune conditions, and Oncology.',
         hero_title: 'Medical Nutrition Therapy',
         problem: {
@@ -238,7 +244,7 @@ export const sessions = [
         id: 'initial',
         slug: 'initial-consultation',
         title: 'Initial Consultation',
-        price: '$99',
+        price: 'Rs. 25,000',
         description: '60-minute comprehensive health assessment. We dive deep into your history, labs, and lifestyle to build your roadmap.',
         features: ['Complete health history analysis', 'Review of recent bloodwork', 'Goal setting & expectation management', 'Initial dietary direction']
     },
@@ -246,7 +252,7 @@ export const sessions = [
         id: 'followup',
         slug: 'follow-up-session',
         title: 'Follow-Up Session',
-        price: '$79',
+        price: 'Rs. 20,000',
         description: '30-minute progress review. Accountability, problem-solving, and protocol progression.',
         features: ['Progress tracking (Weight, measurements, symptoms)', 'Protocol adjustments based on biofeedback', 'Meal plan updates', 'Q&A support']
     },
@@ -254,7 +260,7 @@ export const sessions = [
         id: 'lab',
         slug: 'lab-interpretation',
         title: 'Lab Interpretation',
-        price: '$149',
+        price: 'Rs. 40,000',
         description: '45-minute deep-dive into your functional blood chemistry. Understand what "normal" vs "optimal" means.',
         features: ['Comprehensive biomarker review', 'Identification of functional imbalances', 'Targeted supplement recommendations', 'Letter to GP if needed']
     },
@@ -262,7 +268,7 @@ export const sessions = [
         id: 'transformation',
         slug: 'transformation-package',
         title: 'Transformation Package',
-        price: '$599',
+        price: 'Rs. 165,000',
         description: 'The Gold Standard. A completely guided 12-week journey to transform your metabolic and hormonal health.',
         features: [
             '1 Initial consultation (60 min)',
@@ -276,7 +282,7 @@ export const sessions = [
         id: 'starter',
         slug: 'starter-package',
         title: 'Starter Package',
-        price: '$249',
+        price: 'Rs. 70,000',
         description: 'Perfect for getting started. A 4-week kickstart to reset your habits and understanding.',
         features: [
             '1 Initial consultation (60 min)',

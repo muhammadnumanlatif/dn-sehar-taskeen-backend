@@ -13,7 +13,8 @@ const AdminDashboard = () => {
         services, addService, updateService, deleteService,
         sessions, addSession, updateSession, deleteSession,
         about, updateAbout,
-        testimonials, addTestimonial, updateTestimonial, deleteTestimonial
+        testimonials, addTestimonial, updateTestimonial, deleteTestimonial,
+        seedDatabase
     } = useContent();
 
     // --- Auth States ---
@@ -91,50 +92,53 @@ const AdminDashboard = () => {
         else alert(res.message);
     };
 
-    const handleSaveAnnouncement = () => {
+    const handleSaveAnnouncement = async () => {
+        let newConfig;
         if (editingId) {
-            setLocalConfig(prev => ({
-                ...prev,
-                items: prev.items.map(i => i.id === editingId ? tempItem : i)
-            }));
+            newConfig = {
+                ...localConfig,
+                items: localConfig.items.map(i => i.id === editingId ? tempItem : i)
+            };
         } else {
-            setLocalConfig(prev => ({
-                ...prev,
-                items: [...prev.items, { ...tempItem, id: Date.now() }]
-            }));
+            newConfig = {
+                ...localConfig,
+                items: [...localConfig.items, { ...tempItem, id: Date.now() }]
+            };
         }
+        setLocalConfig(newConfig);
+        await updateConfig(newConfig);
         setShowItemModal(false);
     };
 
-    const handleSaveCourse = () => {
+    const handleSaveCourse = async () => {
         const payload = { ...tempCourse, slug: tempCourse.slug || tempCourse.title?.toLowerCase().replace(/ /g, '-') };
-        if (editingId) updateCourse(editingId, payload);
-        else addCourse({ ...payload, id: Date.now().toString() });
+        if (editingId) await updateCourse(editingId, payload);
+        else await addCourse({ ...payload, id: Date.now().toString() });
         setShowCourseModal(false);
     };
 
-    const handleSaveService = () => {
+    const handleSaveService = async () => {
         const payload = { ...tempService, slug: tempService.slug || tempService.title?.toLowerCase().replace(/ /g, '-') };
-        if (editingId) updateService(editingId, payload);
-        else addService({ ...payload, id: Date.now().toString() });
+        if (editingId) await updateService(editingId, payload);
+        else await addService({ ...payload, id: Date.now().toString() });
         setShowServiceModal(false);
     };
 
-    const handleSaveSession = () => {
+    const handleSaveSession = async () => {
         const payload = { ...tempSession, slug: tempSession.slug || tempSession.title?.toLowerCase().replace(/ /g, '-') };
-        if (editingId) updateSession(editingId, payload);
-        else addSession({ ...payload, id: Date.now().toString() });
+        if (editingId) await updateSession(editingId, payload);
+        else await addSession({ ...payload, id: Date.now().toString() });
         setShowSessionModal(false);
     };
 
-    const handleSaveTestimonial = () => {
-        if (editingId) updateTestimonial(editingId, tempTestimonial);
-        else addTestimonial({ ...tempTestimonial, id: Date.now() });
+    const handleSaveTestimonial = async () => {
+        if (editingId) await updateTestimonial(editingId, tempTestimonial);
+        else await addTestimonial({ ...tempTestimonial, id: Date.now() });
         setShowTestimonialModal(false);
     };
 
-    const handleSaveAbout = () => {
-        updateAbout(tempAbout);
+    const handleSaveAbout = async () => {
+        await updateAbout(tempAbout);
         setShowAboutModal(false);
         setSaveStatus({ type: 'success', msg: 'Profile updated!' });
         setTimeout(() => setSaveStatus(null), 3000);
@@ -377,6 +381,7 @@ const AdminDashboard = () => {
                                                 <Col md={6} key={s.id}>
                                                     <Card className="course-admin-card h-100 p-3 border-0 shadow-sm rounded-4 border-start border-4 border-primary">
                                                         <div className="d-flex gap-2 align-items-center mb-1"><span className="fs-5">{s.icon}</span><h6 className="fw-800 m-0">{s.title}</h6></div>
+                                                        <p className="extra-small text-success fw-bold mb-1">{s.price}</p>
                                                         <p className="extra-small text-muted mb-3">{s.description?.substring(0, 60)}...</p>
                                                         <div className="d-flex gap-2">
                                                             <Button variant="outline-primary" size="sm" className="rounded-pill" onClick={() => { setTempService(s); setEditingId(s.id); setShowServiceModal(true); }}>Edit</Button>
@@ -436,7 +441,8 @@ const AdminDashboard = () => {
                                         <div className="d-flex justify-content-between mb-3">
                                             <h5 className="fw-800">Management Team</h5>
                                             <div className="d-flex gap-2">
-                                                <Button size="sm" variant="light" className="rounded-pill border" onClick={async () => { const res = await syncAdmins(); alert(res.success ? `Synced ${res.count} admins!` : res.message); }}>🔄 Sync Database</Button>
+                                                <Button size="sm" variant="outline-warning" className="rounded-pill" onClick={async () => { if (confirm("Push initial static data to Firebase? This will overwrite existing content.")) { await seedDatabase(); alert("Data Seeded!"); } }}>🌱 Seed Initial Content</Button>
+                                                <Button size="sm" variant="light" className="rounded-pill border" onClick={async () => { const res = await syncAdmins(); alert(res.success ? `Synced ${res.count} admins!` : res.message); }}>🔄 Sync Admins</Button>
                                                 <Button size="sm" variant="success" className="rounded-pill" onClick={() => setShowUserModal(true)}>+ Invite Admin</Button>
                                             </div>
                                         </div>
@@ -575,8 +581,9 @@ const AdminDashboard = () => {
                 <Modal.Body>
                     <Form>
                         <Row className="mb-3">
-                            <Col md={9}><Form.Label className="small fw-700">Service Title</Form.Label><Form.Control className="modern-input" value={tempService.title || ''} onChange={e => setTempService({ ...tempService, title: e.target.value })} /></Col>
-                            <Col md={3}><Form.Label className="small fw-700">Icon</Form.Label><Form.Control className="modern-input" value={tempService.icon || ''} onChange={e => setTempService({ ...tempService, icon: e.target.value })} /></Col>
+                            <Col md={7}><Form.Label className="small fw-700">Service Title</Form.Label><Form.Control className="modern-input" value={tempService.title || ''} onChange={e => setTempService({ ...tempService, title: e.target.value })} /></Col>
+                            <Col md={3}><Form.Label className="small fw-700">Price</Form.Label><Form.Control className="modern-input" value={tempService.price || ''} onChange={e => setTempService({ ...tempService, price: e.target.value })} placeholder="Rs. 15,000" /></Col>
+                            <Col md={2}><Form.Label className="small fw-700">Icon</Form.Label><Form.Control className="modern-input" value={tempService.icon || ''} onChange={e => setTempService({ ...tempService, icon: e.target.value })} /></Col>
                         </Row>
                         <Form.Label className="small fw-700">Expert Hero Title</Form.Label>
                         <Form.Control className="modern-input mb-3" value={tempService.hero_title || ''} onChange={e => setTempService({ ...tempService, hero_title: e.target.value })} />
@@ -589,6 +596,79 @@ const AdminDashboard = () => {
                             <Form.Control size="sm" placeholder="e.g. Hormonal Imbalance" value={newServiceDetail} onChange={e => setNewServiceDetail(e.target.value)} />
                             <Button size="sm" variant="outline-primary" onClick={() => { setTempService(p => ({ ...p, details: [...(p.details || []), newServiceDetail] })); setNewServiceDetail(''); }}>Add Tag</Button>
                         </InputGroup>
+
+                        <hr />
+                        {/* PROBLEM SECTION */}
+                        <h6 className="fw-800 small text-uppercase mb-3 mt-4">1. The Problem</h6>
+                        <Form.Group className="mb-3">
+                            <Form.Label className="small fw-700">Problem Heading</Form.Label>
+                            <Form.Control className="modern-input" value={tempService.problem?.heading || ''} onChange={e => setTempService({ ...tempService, problem: { ...tempService.problem, heading: e.target.value } })} placeholder="e.g. Understanding the Root Cause" />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label className="small fw-700">Problem Content</Form.Label>
+                            <Form.Control as="textarea" rows={3} className="modern-input" value={tempService.problem?.content || ''} onChange={e => setTempService({ ...tempService, problem: { ...tempService.problem, content: e.target.value } })} />
+                        </Form.Group>
+
+                        <hr />
+                        {/* APPROACH SECTION */}
+                        <h6 className="fw-800 small text-uppercase mb-3 mt-4">2. The Approach</h6>
+                        <Form.Group className="mb-3">
+                            <Form.Label className="small fw-700">Approach Heading</Form.Label>
+                            <Form.Control className="modern-input" value={tempService.approach?.heading || ''} onChange={e => setTempService({ ...tempService, approach: { ...tempService.approach, heading: e.target.value } })} />
+                        </Form.Group>
+                        <Form.Label className="small fw-700">Key Points / Steps</Form.Label>
+                        <div className="list-group mb-2">
+                            {tempService.approach?.points?.map((p, i) => (
+                                <div key={i} className="list-group-item p-2 small bg-light border-0 mb-1 rounded">
+                                    <div className="d-flex justify-content-between">
+                                        <strong>{p.title}</strong>
+                                        <Button variant="link" size="sm" className="text-danger p-0" onClick={() => setTempService(prev => ({ ...prev, approach: { ...prev.approach, points: prev.approach.points.filter((_, idx) => idx !== i) } }))}>x</Button>
+                                    </div>
+                                    <div className="text-muted">{p.desc}</div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="d-flex gap-2 mb-4">
+                            <Form.Control size="sm" className="modern-input" placeholder="Point Title" value={newServiceApproach.title} onChange={e => setNewServiceApproach({ ...newServiceApproach, title: e.target.value })} />
+                            <Form.Control size="sm" className="modern-input" placeholder="Description" value={newServiceApproach.desc} onChange={e => setNewServiceApproach({ ...newServiceApproach, desc: e.target.value })} />
+                            <Button size="sm" variant="outline-success" onClick={() => {
+                                if (newServiceApproach.title) {
+                                    setTempService(p => ({
+                                        ...p,
+                                        approach: {
+                                            ...p.approach,
+                                            points: [...(p.approach?.points || []), newServiceApproach]
+                                        }
+                                    }));
+                                    setNewServiceApproach({ title: '', desc: '' });
+                                }
+                            }}>Add</Button>
+                        </div>
+
+                        <hr />
+                        {/* FAQS SECTION */}
+                        <h6 className="fw-800 small text-uppercase mb-3 mt-4">3. FAQs</h6>
+                        <div className="list-group mb-2">
+                            {tempService.faqs?.map((f, i) => (
+                                <div key={i} className="list-group-item p-2 small bg-light border-0 mb-1 rounded">
+                                    <div className="d-flex justify-content-between">
+                                        <strong>Q: {f.q}</strong>
+                                        <Button variant="link" size="sm" className="text-danger p-0" onClick={() => setTempService(prev => ({ ...prev, faqs: prev.faqs.filter((_, idx) => idx !== i) }))}>x</Button>
+                                    </div>
+                                    <div className="text-muted">A: {f.a}</div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="d-flex gap-2 flex-column">
+                            <Form.Control size="sm" className="modern-input" placeholder="Question?" value={newServiceFAQ.q} onChange={e => setNewServiceFAQ({ ...newServiceFAQ, q: e.target.value })} />
+                            <Form.Control size="sm" className="modern-input" as="textarea" placeholder="Answer..." value={newServiceFAQ.a} onChange={e => setNewServiceFAQ({ ...newServiceFAQ, a: e.target.value })} />
+                            <Button size="sm" variant="outline-success" className="w-100" onClick={() => {
+                                if (newServiceFAQ.q) {
+                                    setTempService(p => ({ ...p, faqs: [...(p.faqs || []), newServiceFAQ] }));
+                                    setNewServiceFAQ({ q: '', a: '' });
+                                }
+                            }}>+ Add FAQ</Button>
+                        </div>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer><Button className="w-100 py-3 fw-bold modern-button primary" onClick={handleSaveService}>Commit Clinical Logic</Button></Modal.Footer>

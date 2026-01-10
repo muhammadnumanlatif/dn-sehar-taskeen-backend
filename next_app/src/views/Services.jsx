@@ -48,7 +48,7 @@ const Services = () => {
                                         <p className="card-subtitle">12-Week Protocol</p>
                                     </div>
                                     <div className="card-body">
-                                        <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-gold)', marginBottom: '10px' }}>$299</div>
+                                        <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-gold)', marginBottom: '10px' }}>Rs. 85,000</div>
                                         <p style={{ color: 'var(--neutral-700)', marginBottom: '20px' }}>Comprehensive hormonal restoration program</p>
                                         <h5 className="mb-3">Includes:</h5>
                                         <ul style={{ listStyle: 'none', padding: 0, lineHeight: 2 }}>
@@ -114,7 +114,7 @@ const Services = () => {
                                         <p className="card-subtitle">16-Week Protocol</p>
                                     </div>
                                     <div className="card-body">
-                                        <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-gold)', marginBottom: '10px' }}>$349</div>
+                                        <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-gold)', marginBottom: '10px' }}>Rs. 100,000</div>
                                         <p style={{ color: 'var(--neutral-700)', marginBottom: '20px' }}>Comprehensive gut microbiome optimization</p>
                                         <h5 className="mb-3">Includes:</h5>
                                         <ul style={{ listStyle: 'none', padding: 0, lineHeight: 2 }}>
@@ -187,7 +187,7 @@ const Services = () => {
                                         <p className="card-subtitle">12-Week Protocol</p>
                                     </div>
                                     <div className="card-body">
-                                        <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-gold)', marginBottom: '10px' }}>$279</div>
+                                        <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--accent-gold)', marginBottom: '10px' }}>Rs. 80,000</div>
                                         <p style={{ color: 'var(--neutral-700)', marginBottom: '20px' }}>Complete metabolic transformation</p>
                                         <h5 className="mb-3">Includes:</h5>
                                         <ul style={{ listStyle: 'none', padding: 0, lineHeight: 2 }}>
@@ -225,6 +225,7 @@ const Services = () => {
                                     <div className="card h-100">
                                         <div style={{ fontSize: '2.5rem', marginBottom: '15px' }}>{item.icon}</div>
                                         <h4>{item.title}</h4>
+                                        <p className="fw-bold text-success small mb-2">{item.price}</p>
                                         <p>{item.description}</p>
                                         <Link href="/quote" className="btn btn-ghost btn-sm mt-md text-decoration-none">Learn More →</Link>
                                     </div>

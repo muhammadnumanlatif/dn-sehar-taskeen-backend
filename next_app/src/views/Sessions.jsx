@@ -25,9 +25,9 @@ const Sessions = () => {
                         {sessions.map((item, i) => (
                             <Col lg={4} md={6} key={item.id || i}>
                                 <Reveal delay={i * 0.1}>
-                                    <div className={`card h-100 ${item.price && parseInt(item.price.replace(/\D/g, '')) > 200 ? 'card-featured' : 'specialty-card'}`}>
+                                    <div className={`card h-100 ${item.price && parseInt(item.price.replace(/\D/g, '')) > 50000 ? 'card-featured' : 'specialty-card'}`}>
                                         <div className="card-header" style={{ background: 'transparent', border: 'none', padding: '0' }}>
-                                            {item.price && parseInt(item.price.replace(/\D/g, '')) > 500 && <span className="badge badge-accent mb-2">Best Value</span>}
+                                            {item.price && parseInt(item.price.replace(/\D/g, '')) > 100000 && <span className="badge badge-accent mb-2">Best Value</span>}
                                             {item.schedule_date && <span className="badge bg-info text-dark mb-2 ms-2">📅 {item.schedule_day} {item.schedule_time}</span>}
                                             <h3 className="card-title mt-2">{item.title}</h3>
                                             <p className="card-subtitle">{item.description}</p>
