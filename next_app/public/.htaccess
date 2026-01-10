@@ -1,0 +1,37 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Hide .html extension
+  # If the request matches a file with .html, internally redirect 
+  # but external request shouldn't see .html
+  
+  # Externally redirect /file.html to /file
+  RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+  RewriteRule ^ /%1 [L,R=301]
+
+  # Internally rewrite /file to /file.html
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^ %{REQUEST_URI}.html [L]
+  
+  # Handle trailing slash: remove it if not a directory
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} (.+)/$
+  RewriteRule ^ %1 [L,R=301]
+
+  # Custom 404
+  ErrorDocument 404 /404.html
+</IfModule>
+
+<IfModule mod_headers.c>
+  # 1 Year for media and static assets
+  <FilesMatch "\.(ico|jpg|jpeg|png|gif|svg|webp|js|css|woff|woff2)$">
+     Header set Cache-Control "max-age=31536000, public"
+  </FilesMatch>
+  
+  # 1 Hour for HTML files (to allow updates to propagate reasonably fast)
+  <FilesMatch "\.(html|xml|json)$">
+     Header set Cache-Control "max-age=3600, public"
+  </FilesMatch>
+</IfModule>
