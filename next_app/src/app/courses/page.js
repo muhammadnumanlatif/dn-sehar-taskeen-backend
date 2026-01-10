@@ -1,4 +1,4 @@
-import PageContent from '../../pages/Courses';
+import PageContent from '../../views/Courses';
 
 export const metadata = {
     title: 'Online Nutrition Certification Courses | Dr. Sehar Taskeen | Become a Specialist',

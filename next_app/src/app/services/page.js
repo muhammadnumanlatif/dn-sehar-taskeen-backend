@@ -1,4 +1,4 @@
-import PageContent from '../../pages/Services';
+import PageContent from '../../views/Services';
 
 export const metadata = {
     title: 'Clinical Nutrition Services | Dr. Sehar Taskeen | PCOS, Gut & Metabolic Health',

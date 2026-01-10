@@ -1,4 +1,4 @@
-import PageContent from '../../pages/Sessions';
+import PageContent from '../../views/Sessions';
 
 export const metadata = {
     title: 'Book Nutrition Consultation | Dr. Sehar Taskeen | Online & In-Person',

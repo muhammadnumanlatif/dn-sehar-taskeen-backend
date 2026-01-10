@@ -1,4 +1,4 @@
-import PageContent from '../../pages/About';
+import PageContent from '../../views/About';
 
 export const metadata = {
     title: 'About Dr. Sehar Taskeen | Clinical Nutritionist & PCOS Expert | 10+ Years Exp',

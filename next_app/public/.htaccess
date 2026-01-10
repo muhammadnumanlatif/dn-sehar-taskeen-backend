@@ -2,23 +2,11 @@
   RewriteEngine On
   RewriteBase /
 
-  # Hide .html extension
-  # If the request matches a file with .html, internally redirect 
-  # but external request shouldn't see .html
-  
-  # Externally redirect /file.html to /file
-  RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
-  RewriteRule ^ /%1 [L,R=301]
-
-  # Internally rewrite /file to /file.html
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME}.html -f
-  RewriteRule ^ %{REQUEST_URI}.html [L]
-  
-  # Handle trailing slash: remove it if not a directory
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_URI} (.+)/$
-  RewriteRule ^ %1 [L,R=301]
+  # Enforce trailing slash for directories
+  # If request is not a file, and doesn't end in slash, redirect to same url with slash
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_URI} !(.*)/$
+  RewriteRule ^(.*)$ $1/ [L,R=301]
 
   # Custom 404
   ErrorDocument 404 /404.html
@@ -30,7 +18,7 @@
      Header set Cache-Control "max-age=31536000, public"
   </FilesMatch>
   
-  # 1 Hour for HTML files (to allow updates to propagate reasonably fast)
+  # 1 Hour for HTML files
   <FilesMatch "\.(html|xml|json)$">
      Header set Cache-Control "max-age=3600, public"
   </FilesMatch>

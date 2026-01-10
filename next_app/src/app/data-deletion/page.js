@@ -1,4 +1,4 @@
-import DataDeletionContent from '../../pages/DataDeletion';
+import DataDeletionContent from '../../views/DataDeletion';
 
 export const metadata = {
     title: 'Data Deletion Instructions | Dr. Sehar Taskeen',

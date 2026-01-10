@@ -1,4 +1,4 @@
-import TermsContent from '../../pages/Terms';
+import TermsContent from '../../views/Terms';
 
 export const metadata = {
     title: 'Terms of Service | Dr. Sehar Taskeen | Clinical Nutrition Platform',

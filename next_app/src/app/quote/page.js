@@ -1,4 +1,4 @@
-import PageContent from '../../pages/Quote';
+import PageContent from '../../views/Quote';
 
 export const metadata = {
     title: 'Get Your Free Health Assessment | Dr. Sehar Taskeen | Start Your Journey',

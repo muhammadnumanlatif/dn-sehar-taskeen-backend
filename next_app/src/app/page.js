@@ -1,4 +1,4 @@
-import HomeContent from '../pages/Home';
+import HomeContent from '../views/Home';
 
 export const metadata = {
     title: 'Clinical Nutritionist in Pakistan & Global | Dr. Sehar Taskeen | Reverse PCOS Naturally',

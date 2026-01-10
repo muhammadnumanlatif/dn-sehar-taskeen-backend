@@ -1,4 +1,4 @@
-import PrivacyContent from '../../pages/PrivacyPolicy';
+import PrivacyContent from '../../views/PrivacyPolicy';
 
 export const metadata = {
     title: 'Privacy Policy | Dr. Sehar Taskeen',
